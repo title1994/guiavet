@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
@@ -35,3 +36,7 @@ Your app is ready to be deployed.
 ## User Guide
 
 You can find detailed instructions on using Create React App and many tips in [its documentation](https://facebook.github.io/create-react-app/).
+=======
+# guiavet
+Test
+>>>>>>> 0c2cb3bb58ae5e4860be7975ebdce3dd1c12722c
