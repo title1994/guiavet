@@ -60,7 +60,7 @@ const routes: Routes = [
     guard: AuthGuard,
     layout: DashboardLayout,
     path: '/',
-    component: HomeView
+    component: lazy(() => import('src/views/reports/DashboardView'))
   },
   {
     exact: true,
@@ -71,6 +71,11 @@ const routes: Routes = [
     exact: true,
     path: '/register',
     component: lazy(() => import('src/views/auth/RegisterView'))
+  },
+  {
+    exact: true,
+    path: '/forgot',
+    component: lazy(() => import('src/views/auth/ForgotView'))
   },
 ];
 

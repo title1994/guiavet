@@ -13,12 +13,11 @@ import {
   Link,
   makeStyles
 } from '@material-ui/core';
-import { Alert } from '@material-ui/lab';
 import useAuth from 'src/hooks/useAuth';
 import useIsMountedRef from 'src/hooks/useIsMountedRef';
 import { useHistory } from "react-router-dom";
 
-interface JWTLoginProps {
+interface ForgotProps {
   className?: string;
 }
 
@@ -30,7 +29,7 @@ const useStyles = makeStyles(() => ({
   }
 }));
 
-const JWTLogin: FC<JWTLoginProps> = ({ className, ...rest }) => {
+const Forgot: FC<ForgotProps> = ({ className, ...rest }) => {
   const classes = useStyles();
   const { login } = useAuth() as any;
   const isMountedRef = useIsMountedRef();
@@ -40,7 +39,6 @@ const JWTLogin: FC<JWTLoginProps> = ({ className, ...rest }) => {
     <Formik
       initialValues={{
         email: 'demo@devias.io',
-        password: 'Password123',
         submit: null
       }}
       validationSchema={Yup.object().shape({
@@ -53,19 +51,9 @@ const JWTLogin: FC<JWTLoginProps> = ({ className, ...rest }) => {
         setSubmitting
       }) => {
         try {
-          history.push('/');
-          await login(values.email, values.password);
-          if (isMountedRef.current) {
-            setStatus({ success: true });
-            setSubmitting(false);
-          }
+
         } catch (err) {
           console.error(err);
-          if (isMountedRef.current) {
-            setStatus({ success: false });
-            setErrors({ submit: err.message });
-            setSubmitting(false);
-          }
         }
       }}
     >
@@ -98,19 +86,6 @@ const JWTLogin: FC<JWTLoginProps> = ({ className, ...rest }) => {
             value={values.email}
             variant="outlined"
           />
-          <TextField
-            error={Boolean(touched.password && errors.password)}
-            fullWidth
-            helperText={touched.password && errors.password}
-            label="Senha"
-            margin="normal"
-            name="password"
-            onBlur={handleBlur}
-            onChange={handleChange}
-            type="password"
-            value={values.password}
-            variant="outlined"
-          />
           {errors.submit && (
             <Box mt={3}>
               <FormHelperText error>
@@ -118,14 +93,6 @@ const JWTLogin: FC<JWTLoginProps> = ({ className, ...rest }) => {
               </FormHelperText>
             </Box>
           )}
-          <Link
-            component={RouterLink}
-            to="/forgot"
-            variant="body2"
-            color="secondary"
-          >
-            Esqueci minha senha.
-            </Link>
           <Box mt={2} className={classes.loginBtn}>
             <Button
               color="secondary"
@@ -143,8 +110,8 @@ const JWTLogin: FC<JWTLoginProps> = ({ className, ...rest }) => {
   );
 };
 
-JWTLogin.propTypes = {
+Forgot.propTypes = {
   className: PropTypes.string,
 };
 
-export default JWTLogin;
+export default Forgot;

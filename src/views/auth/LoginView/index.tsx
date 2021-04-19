@@ -20,6 +20,8 @@ import useAuth from 'src/hooks/useAuth';
 import Auth0Login from './Auth0Login';
 import FirebaseAuthLogin from './FirebaseAuthLogin';
 import JWTLogin from './JWTLogin';
+import backgroundImg from 'src/assets/img/background.jpg';
+import loginRibbon from 'src/assets/img/login-ribbon.svg';
 
 const methodIcons = {
   'Auth0': '/static/images/auth0.svg',
@@ -29,7 +31,9 @@ const methodIcons = {
 
 const useStyles = makeStyles((theme: Theme) => ({
   root: {
-    backgroundColor: theme.palette.background.dark,
+    backgroundImage: `url(${backgroundImg})`,
+    backgroundRepeat: 'no-repeat',
+    backgroundSize: "100% 100%",
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh'
@@ -48,15 +52,30 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2)
   },
+  authTitle: {
+    textAlign: "center"
+  },
+  card: {
+    marginTop: "45px",
+  },
   cardContainer: {
-    paddingBottom: 80,
-    paddingTop: 80,
+    width: "25vw",
+    padding: theme.spacing(0),
+    marginTop: "180px",
+    position: "relative"
+  },
+  cardRibbon: {
+    width: "64px",
+    height: "64px",
+    position: "absolute",
+    top: "90px",
+    left: "32px"
   },
   cardContent: {
     padding: theme.spacing(4),
     display: 'flex',
     flexDirection: 'column',
-    minHeight: 400
+    minHeight: 470,
   },
   currentMethodIcon: {
     height: 40,
@@ -78,8 +97,7 @@ const LoginView: FC = () => {
     >
       <Box
         mb={8}
-        display="flex"
-        justifyContent="center"
+        style={{ position: "absolute" }}
       >
         <RouterLink to="/">
           <Logo />
@@ -89,7 +107,15 @@ const LoginView: FC = () => {
         className={classes.cardContainer}
         maxWidth="sm"
       >
-        <Card>
+        <Typography variant="h1" color="textSecondary" className={classes.authTitle}>
+          Seus pacientes
+          <br />
+          estão te esperando!
+        </Typography>
+        <div className={classes.cardRibbon}>
+          <img src={loginRibbon}></img>
+        </div>
+        <Card className={classes.card}>
           <CardContent className={classes.cardContent}>
             <Box
               alignItems="center"
@@ -103,29 +129,28 @@ const LoginView: FC = () => {
                   gutterBottom
                   variant="h2"
                 >
-                  Sign in
+                  Log in no Guia Vet
                 </Typography>
-                <Typography
+                {/* <Typography
                   variant="body2"
                   color="textSecondary"
                 >
                   Sign in on the internal platform
-                </Typography>
+                </Typography> */}
               </div>
-              <div className={classes.currentMethodIcon}>
+              {/* <div className={classes.currentMethodIcon}>
                 <img
                   alt="Auth method"
                   src={methodIcons[method]}
                 />
-              </div>
+              </div> */}
             </Box>
             <Box
               flexGrow={1}
-              mt={3}
             >
-              {method === 'Auth0' && <Auth0Login /> }
-              {method === 'FirebaseAuth' && <FirebaseAuthLogin /> }
-              {method === 'JWT' && <JWTLogin /> }
+              {method === 'Auth0' && <Auth0Login />}
+              {method === 'FirebaseAuth' && <FirebaseAuthLogin />}
+              {method === 'JWT' && <JWTLogin />}
             </Box>
             <Box my={3}>
               <Divider />

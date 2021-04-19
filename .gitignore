@@ -26,3 +26,4 @@ yarn-lock.json
 .prettierignore
 package-lock.json
 .env
+README.md

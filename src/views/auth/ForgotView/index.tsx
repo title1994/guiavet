@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import type { FC } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
@@ -17,12 +17,9 @@ import type { Theme } from 'src/theme';
 import Page from 'src/components/Page';
 import Logo from 'src/components/Logo';
 import useAuth from 'src/hooks/useAuth';
-import JWTRegister from './JWTRegister';
-import RegisterItem1 from './register-item1';
-import RegisterItem2 from './register-item2';
-import RegisterItem3 from './register-item3';
-import backgroundImg from 'src/assets/img/background.jpg';
-import rigsterRibbon from 'src/assets/img/register-ribbon.svg';
+import Forgot from './Forgot';
+import backgroundImg from '../../../assets/img/background.jpg';
+import loginRibbon from 'src/assets/img/login-ribbon.svg';
 
 const methodIcons = {
   'Auth0': '/static/images/auth0.svg',
@@ -34,6 +31,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   root: {
     backgroundImage: `url(${backgroundImg})`,
     backgroundRepeat: 'no-repeat',
+    backgroundSize: "100% 100%",
     display: 'flex',
     flexDirection: 'column',
     minHeight: '100vh'
@@ -52,10 +50,23 @@ const useStyles = makeStyles((theme: Theme) => ({
     marginLeft: theme.spacing(2),
     marginRight: theme.spacing(2)
   },
+  authTitle: {
+    textAlign: "center"
+  },
+  card: {
+    marginTop: "45px"
+  },
   cardContainer: {
-    paddingBottom: 80,
-    paddingTop: 80,
+    width: "25vw",
+    padding: theme.spacing(0),
+    marginTop: "180px",
     position: "relative"
+  },
+  cardContent: {
+    padding: theme.spacing(4),
+    display: 'flex',
+    flexDirection: 'column',
+    minHeight: 470
   },
   cardRibbon: {
     width: "64px",
@@ -63,12 +74,6 @@ const useStyles = makeStyles((theme: Theme) => ({
     position: "absolute",
     top: "90px",
     left: "32px"
-  },
-  cardContent: {
-    padding: theme.spacing(4),
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: 400
   },
   currentMethodIcon: {
     height: 40,
@@ -79,7 +84,7 @@ const useStyles = makeStyles((theme: Theme) => ({
   }
 }));
 
-const RegisterView: FC = () => {
+const ForgotView: FC = () => {
   const classes = useStyles();
   const { method } = useAuth() as any;
 
@@ -90,8 +95,7 @@ const RegisterView: FC = () => {
     >
       <Box
         mb={8}
-        display="flex"
-        justifyContent="center"
+        style={{ position: "absolute" }}
       >
         <RouterLink to="/">
           <Logo />
@@ -101,13 +105,15 @@ const RegisterView: FC = () => {
         className={classes.cardContainer}
         maxWidth="sm"
       >
-        <Typography variant="h1" color="textSecondary">
-          Seus pacientes estão te esperando!
+        <Typography variant="h1" color="textSecondary" className={classes.authTitle}>
+          Seus pacientes
+          <br />
+          estão te esperando!
         </Typography>
         <div className={classes.cardRibbon}>
-          <img src={rigsterRibbon}></img>
+          <img src={loginRibbon}></img>
         </div>
-        <Card>
+        <Card className={classes.card}>
           <CardContent className={classes.cardContent}>
             <Box
               alignItems="center"
@@ -123,25 +129,11 @@ const RegisterView: FC = () => {
                 >
                   Log in no Guia Vet
                 </Typography>
-                {/* <Typography
-                  variant="body2"
-                  color="textSecondary"
-                >
-                  Sign in on the internal platform
-                </Typography> */}
               </div>
-              {/* <div className={classes.currentMethodIcon}>
-                <img
-                  alt="Auth method"
-                  src={methodIcons[method]}
-                />
-              </div> */}
             </Box>
             <Box
-              flexGrow={1}
-              mt={3}
-            >
-              <JWTRegister />
+              flexGrow={1}>
+              <Forgot />
             </Box>
             <Box my={3}>
               <Divider />
@@ -161,4 +153,4 @@ const RegisterView: FC = () => {
   );
 };
 
-export default RegisterView;
+export default ForgotView;
